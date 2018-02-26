@@ -1,0 +1,5 @@
+github:
+    auth_token: <TOKEN>
+webapp:
+    port: 8080
+    debug: True
