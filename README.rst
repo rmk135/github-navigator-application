@@ -19,11 +19,14 @@ Setup
 
 .. code-block:: bash
 
-    pip install requirements.txt
+    pip install -r requirements.txt
     cp ./config.yml-sample ./config.yml
+
+Insert your GitHub auth token to `config.yml`.
 
 Run
 ---
 .. code-block:: bash
 
     python3 application.py
+    open http://127.0.0.1:8080/navigator
