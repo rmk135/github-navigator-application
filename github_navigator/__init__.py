@@ -1,6 +1,6 @@
 """GitHub Navigator application."""
 
-from .container import GithubNavigator
+from .application import GithubNavigator
 
 
 __all__ = ('GithubNavigator',)

@@ -7,7 +7,7 @@ import aiohttp
 import async_timeout
 
 
-class GithubSearcher:
+class GithubSearch:
     """GitHub searcher."""
 
     API_URL = 'https://api.github.com/'

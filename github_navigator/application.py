@@ -1,4 +1,4 @@
-"""Github Navigator application - DI container."""
+"""Github Navigator application container."""
 
 from aiohttp import web
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -8,12 +8,12 @@ from . import searcher, webhandlers, webapp
 
 
 class GithubNavigator(containers.DeclarativeContainer):
-    """Application components container."""
+    """Application container."""
 
     config = providers.Configuration()
 
-    github_searcher = providers.Factory(
-        searcher.GithubSearcher,
+    github_search = providers.Factory(
+        searcher.GithubSearch,
         auth_token=config.github.auth_token,
         request_timeout=config.github.request_timeout,
     )
@@ -32,7 +32,7 @@ class GithubNavigator(containers.DeclarativeContainer):
     navigator_webhandler = providers.Coroutine(
         webhandlers.navigator,
         template_env=template_env,
-        github_searcher_factory=github_searcher.provider,
+        github_search_factory=github_search.provider,
     )
 
     webapp = providers.Factory(

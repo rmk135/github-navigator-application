@@ -3,12 +3,12 @@
 from aiohttp.web import Response
 
 
-async def navigator(request, *, template_env, github_searcher_factory):
+async def navigator(request, *, template_env, github_search_factory):
     """Navigator request handler."""
     search_term = request.query.get('search_term')
     limit = request.query.get('limit', 5)
 
-    github_searcher = github_searcher_factory(search_term, limit=limit)
+    github_searcher = github_search_factory(search_term, limit=limit)
     results = await github_searcher.get_search_results()
 
     template = template_env.get_template('navigator.html')
