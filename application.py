@@ -1,9 +1,9 @@
 """Github Navigator application - entrypoint."""
 
-from github_navigator import ConfigLoader, GithubNavigator, run_web
+from github_navigator import GithubNavigator
 
 
 if __name__ == '__main__':
-    config_loader = ConfigLoader('config.yml')
-    application = GithubNavigator(config=config_loader.load())
-    run_web(application)
+    application = GithubNavigator()
+    application.config.from_yaml('config.yml')
+    application.run_webapp()

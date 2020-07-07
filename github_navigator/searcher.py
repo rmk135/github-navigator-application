@@ -26,7 +26,7 @@ class GithubSearcher:
             repositories = await self._make_search(session)
 
             latest_commits = await asyncio.gather(
-                *(self._get_lastest_commit(session, repository)
+                *(self._get_latest_commit(session, repository)
                   for repository in repositories))
 
             return zip(repositories, latest_commits)
@@ -44,7 +44,7 @@ class GithubSearcher:
                 response_data = json.loads(response)
                 return response_data['items']
 
-    async def _get_lastest_commit(self, session, repository):
+    async def _get_latest_commit(self, session, repository):
         url = repository['commits_url'].replace('{/sha}', '')
         params = {'q': f'{self._search_term} in:name',
                   'sort': 'updated',
