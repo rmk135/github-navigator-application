@@ -6,7 +6,7 @@ from .application import Application
 def main() -> None:
     """Run application."""
     application = Application()
-    application.config.from_yaml('config.yml')
+    application.config.from_yaml('config/config.yml')
     application.run_website()
 
 

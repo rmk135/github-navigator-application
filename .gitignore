@@ -61,7 +61,3 @@ venv/
 
 # Vim Rope
 .ropeproject/
-
-# Project-specific files
-config.yml
-_task-github.zip
