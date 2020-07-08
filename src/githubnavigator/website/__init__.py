@@ -1,3 +1,4 @@
+"""Website package."""
 
 from . import app, handlers
 

@@ -1,4 +1,4 @@
-"""GitHub Navigator application - search component."""
+"""Github search module."""
 
 import asyncio
 import json

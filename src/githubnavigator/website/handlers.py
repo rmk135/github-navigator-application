@@ -1,4 +1,4 @@
-"""GitHub Navigator application - web request handlers."""
+"""Website request handlers module."""
 
 from aiohttp import web
 import jinja2

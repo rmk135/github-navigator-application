@@ -1,4 +1,4 @@
-"""Github Navigator application - web application."""
+"""Website application module."""
 
 from typing import List
 
