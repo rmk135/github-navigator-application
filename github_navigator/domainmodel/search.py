@@ -8,7 +8,7 @@ import async_timeout
 
 
 class GithubSearch:
-    """GitHub search."""
+    """GitHub search performs search on Github."""
 
     API_URL = 'https://api.github.com/'
 

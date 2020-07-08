@@ -3,7 +3,7 @@
 from aiohttp import web
 import jinja2
 
-from .search import GithubSearch
+from github_navigator.domainmodel.search import GithubSearch
 
 
 async def navigator(
