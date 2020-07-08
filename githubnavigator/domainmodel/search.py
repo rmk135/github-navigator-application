@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+from typing import Optional
 
 import aiohttp
 import async_timeout
@@ -11,9 +12,14 @@ class GithubSearch:
     """GitHub search performs search on Github."""
 
     API_URL = 'https://api.github.com/'
+    DEFAULT_LIMIT = 5
 
-    def __init__(self, *, auth_token, request_timeout):
-        """Initializer."""
+    def __init__(
+            self, *,
+            auth_token: Optional[str],
+            request_timeout: Optional[int] = DEFAULT_LIMIT,
+    ) -> None:
+        """Initialize search."""
         self._auth_token = auth_token
         self._request_timeout = request_timeout
 
@@ -22,7 +28,10 @@ class GithubSearch:
         if not search_term:
             return []
 
-        headers = {'authorization': f'token {self._auth_token}'}
+        headers = {}
+        if self._auth_token:
+            headers['authorization'] = f'token {self._auth_token}'
+
         async with aiohttp.ClientSession(headers=headers) as session:
             repositories = await self._make_search(session, search_term, limit)
 
