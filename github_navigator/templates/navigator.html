@@ -5,8 +5,8 @@
 </head>
 <body>
     <h1>{{search_term}}</h1>
-    {% for number, (repository, latest_commit) in results %} {{n}} 
-        <h2>{{number}}. {{repository['name']}}</h2>
+    {% for repository, latest_commit in results %} {{n}}
+        <h2>{{loop.index}}. {{repository['name']}}</h2>
         <h3> Created {{repository['created_at']}}</h3>
         <a href="{{repository['owner']['html_url']}}"><img src="{{repository['owner']['avatar_url']}}" alt="avatar" height="42" width="42"/></a>
         {{repository['owner']['login']}}

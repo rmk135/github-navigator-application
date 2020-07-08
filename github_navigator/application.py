@@ -1,10 +1,10 @@
 """Github Navigator application container."""
 
 from aiohttp import web
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+import jinja2
 from dependency_injector import containers, providers
 
-from . import searcher, webhandlers, webapp
+from . import search, webhandlers, webapp
 
 
 class GithubNavigator(containers.DeclarativeContainer):
@@ -13,26 +13,27 @@ class GithubNavigator(containers.DeclarativeContainer):
     config = providers.Configuration()
 
     github_search = providers.Factory(
-        searcher.GithubSearch,
+        search.GithubSearch,
         auth_token=config.github.auth_token,
         request_timeout=config.github.request_timeout,
     )
 
-    template_loader = providers.Singleton(
-        FileSystemLoader,
+    template_loader = providers.Factory(
+        jinja2.FileSystemLoader,
         searchpath=config.webapp.templates_dir,
     )
+
     template_env = providers.Singleton(
-        Environment,
+        jinja2.Environment,
         loader=template_loader,
-        autoescape=select_autoescape(['html', 'xml']),
+        autoescape=jinja2.select_autoescape(['html', 'xml']),
         enable_async=True,
     )
 
     navigator_webhandler = providers.Coroutine(
         webhandlers.navigator,
         template_env=template_env,
-        github_search_factory=github_search.provider,
+        github_search=github_search,
     )
 
     webapp = providers.Factory(

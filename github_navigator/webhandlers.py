@@ -1,20 +1,22 @@
 """GitHub Navigator application - web request handlers."""
 
-from aiohttp.web import Response
+from aiohttp import web
+import jinja2
+
+from .search import GithubSearch
 
 
-async def navigator(request, *, template_env, github_search_factory):
+async def navigator(request: web.Request, *, template_env: jinja2.Environment, github_search: GithubSearch):
     """Navigator request handler."""
     search_term = request.query.get('search_term')
     limit = request.query.get('limit', 5)
 
-    github_searcher = github_search_factory(search_term, limit=limit)
-    results = await github_searcher.get_search_results()
+    repositories = await github_search.search_repositories(search_term, limit)
 
     template = template_env.get_template('navigator.html')
     rendered_template = await template.render_async(
         search_term=search_term,
-        results=enumerate(results, 1),
+        results=repositories,
     )
 
-    return Response(body=rendered_template, content_type='text/html', charset='utf-8')
+    return web.Response(body=rendered_template, content_type='text/html', charset='utf-8')
