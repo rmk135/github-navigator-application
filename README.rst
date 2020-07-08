@@ -20,7 +20,6 @@ How to run?
     docker-compose up
 
 .. note::
-
    Github has a rate limit. For unauthenticated requests, the rate limit allows for up to 60
    requests per hour. To extend the limit to 5000 requests per hour you need to set personal
    access token.

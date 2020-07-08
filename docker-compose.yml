@@ -9,5 +9,3 @@ services:
       - "8080:8080"
     environment:
       GITHUB_TOKEN: ${GITHUB_TOKEN}
-    volumes:
-      - "./:/code"
