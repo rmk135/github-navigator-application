@@ -1,18 +1,16 @@
-================
 GitHub Navigator
 ================
 
-GitHub Navigator is an example Python 3.6 + AsyncIO + Sanic + Aiohttp + DI application.
+GitHub Navigator is an example
+`Dependency Injector <https://github.com/ets-labs/python-dependency-injector>`_ web application.
 
 Powered By:
 
-- `GitHub <https://github.com/>`_ and its awesome `API <https://developer.github.com/v3/>`_
-- `Python 3.6 <https://www.python.org/>`_
-- `AsyncIO <https://docs.python.org/3/library/asyncio.html>`_
-- `Sanic <https://github.com/channelcat/sanic>`_
-- `Aiohttp <https://github.com/aio-libs/aiohttp>`_
+- `Python 3.8 <https://www.python.org/>`_
 - `Dependency Injector <https://github.com/ets-labs/python-dependency-injector>`_
-
+- `Aiohttp <https://github.com/aio-libs/aiohttp>`_
+- `GitHub <https://github.com/>`_ and its awesome `API <https://developer.github.com/v3/>`_
+- `Docker <https://www.docker.com/>`_ + `Docker-compose <https://docs.docker.com/compose/>`_
 
 Setup
 -----
@@ -28,5 +26,5 @@ Run
 ---
 .. code-block:: bash
 
-    python3 application.py
-    open http://127.0.0.1:8080/navigator
+    python -m githubnavigator
+    open http://127.0.0.1:8080/
