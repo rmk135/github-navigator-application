@@ -19,6 +19,9 @@ class GithubSearch:
 
     async def search_repositories(self, search_term, limit):
         """Search repositories."""
+        if not search_term:
+            return []
+
         headers = {'authorization': f'token {self._auth_token}'}
         async with aiohttp.ClientSession(headers=headers) as session:
             repositories = await self._make_search(session, search_term, limit)
@@ -30,7 +33,7 @@ class GithubSearch:
                 ]
             )
 
-            return zip(repositories, latest_commits)
+            return list(zip(repositories, latest_commits))
 
     async def _make_search(self, session, search_term, limit):
         url = f'{self.API_URL}search/repositories'

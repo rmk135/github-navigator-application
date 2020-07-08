@@ -4,14 +4,36 @@
     <title>Github Navigator</title>
 </head>
 <body>
-    <h1>{{search_term}}</h1>
+    <h1>Github Navigator</h1>
+    <form method="get">
+        <p>
+            Search term: <input type="text" name="search_term" value="{{ search_term if search_term }}">
+            Limit: <input type="text" name="limit" value="{{ limit }}">
+            <input type="submit">
+        </p>
+    </form>
+    <h2>Search results</h2>
+    {% if results|length == 0 %}
+        <small>No search results</small>
+    {% endif %}
     {% for repository, latest_commit in results %} {{n}}
-        <h2>{{loop.index}}. {{repository['name']}}</h2>
-        <h3> Created {{repository['created_at']}}</h3>
-        <a href="{{repository['owner']['html_url']}}"><img src="{{repository['owner']['avatar_url']}}" alt="avatar" height="42" width="42"/></a>
-        {{repository['owner']['login']}}
-        <h3>LastCommit</h3>
-        {{latest_commit['sha']}} {{latest_commit['commit']['message']}}  {{latest_commit['commit']['author']['name']}}
+        <p>
+            <small>Search result # {{ loop.index }} from {{ results|length }}</small>
+        </p>
+        <p>
+            Repository: <a href="{{ repository['html_url'] }}">{{ repository['name'] }}</a>
+        </p>
+        <p>
+            Repository owner:
+            <a href="{{ repository['owner']['html_url'] }}"><img src="{{ repository['owner']['avatar_url'] }}" alt="avatar" height="24" width="24"/></a>
+            <a href="{{ repository['owner']['html_url'] }}">{{ repository['owner']['login'] }}</a>
+        </p>
+        <p>
+            Created at: {{ repository['created_at'] }}
+        </p>
+        <p>
+            LastCommit: <a href="{{ latest_commit['html_url'] }}">{{ latest_commit['sha'] }}</a> {{ latest_commit['commit']['message'] }} {{ latest_commit['commit']['author']['name'] }}
+        </p>
         <hr/>
     {% endfor %}
 </body>

@@ -34,12 +34,14 @@ class GithubNavigator(containers.DeclarativeContainer):
         webhandlers.navigator,
         template_env=template_env,
         github_search=github_search,
+        default_search_term=config.search.default_term,
+        default_search_limit=config.search.default_limit,
     )
 
     webapp = providers.Factory(
         webapp.create_webapp,
         routes=providers.List(
-            providers.Factory(web.get, '/navigator', navigator_webhandler.provider),
+            providers.Factory(web.get, '/', navigator_webhandler.provider),
         ),
     )
 
