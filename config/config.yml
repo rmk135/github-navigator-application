@@ -7,4 +7,4 @@ search:
 webapp:
     port: 8080
     host: "0.0.0.0"
-    templates_dir: "githubnavigator/website/templates/"
+    templates_dir: "src/githubnavigator/website/templates/"

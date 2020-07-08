@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+
+  website:
+    build: ./
+    image: github-navigator
+    ports:
+      - "8080:8080"
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+    volumes:
+      - "./:/code"
