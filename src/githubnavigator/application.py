@@ -4,7 +4,7 @@ from aiohttp import web
 import jinja2
 from dependency_injector import containers, providers
 
-from . import domainmodel, website
+from . import search, handlers, webapp
 
 
 class Application(containers.DeclarativeContainer):
@@ -12,15 +12,11 @@ class Application(containers.DeclarativeContainer):
 
     config = providers.Configuration()
 
-    # Domain model
-
     github_search = providers.Factory(
-        domainmodel.search.GithubSearch,
+        search.GithubSearch,
         auth_token=config.github.auth_token,
         request_timeout=config.github.request_timeout,
     )
-
-    # Website
 
     template_loader = providers.Factory(
         jinja2.FileSystemLoader,
@@ -38,23 +34,23 @@ class Application(containers.DeclarativeContainer):
     )
 
     navigator_handler = providers.Coroutine(
-        website.handlers.navigator,
+        handlers.navigator,
         template_env=template_env,
         github_search=github_search,
         default_search_term=config.search.default_term,
         default_search_limit=config.search.default_limit,
     )
 
-    website_app = providers.Factory(
-        website.app.create_webapp,
+    web_app = providers.Factory(
+        webapp.create_app,
         routes=providers.List(
             providers.Factory(web.get, '/', navigator_handler.provider),
         ),
     )
 
-    run_website = providers.Callable(
+    run = providers.Callable(
         web.run_app,
-        app=website_app,
+        app=web_app,
         port=config.webapp.port,
         host=config.webapp.host,
     )

@@ -7,7 +7,7 @@ def main() -> None:
     """Run application."""
     application = Application()
     application.config.from_yaml('config/config.yml')
-    application.run_website()
+    application.run()
 
 
 if __name__ == '__main__':
